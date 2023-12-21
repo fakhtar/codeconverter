@@ -29,9 +29,11 @@ jobs:
         id: plan
         run: |
           terraform plan \
+            -var="AWS_ACCESS_KEY_ID=${{ secrets.TF_VAR_AWS_ACCESS_KEY }}" \
+            -var="AWS_SECRET_ACCESS_KEY=${{ secrets.TF_VAR_AWS_SECRET_KEY }}" \
             -input=false \
             -json \
-            -out=tfplan       
+            -out=tfplan
       - name: Check location of plan output file
         id: checkfilelocation
         run: ls -R .
