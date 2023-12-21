@@ -3,7 +3,7 @@ on:
     branches:
       - main
 
-name: Terraform init validate and plan
+name: Terraform CLI Workflow
 
 jobs:
   terraforminitvalidateandplan:
@@ -52,6 +52,8 @@ jobs:
       - name: Echo approved
         id: echoapproved
         run: echo "approved"
+  terraformapply:
+    needs: terraforminitvalidateandplan
       - name: download plan artifact
         id: downloadplanartifact
         uses: actions/download-artifact@v3
