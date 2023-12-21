@@ -3,7 +3,7 @@ on:
     branches:
       - main
 
-name: Terraform CLI
+name: Terraform Plan
 
 jobs:
   terraform:
@@ -18,7 +18,27 @@ jobs:
           terraform_version: "1.6.6"
       - name: Terraform Init
         id: init
-        run: terraform init -backend-config="access_key=${{ secrets.TF_VAR_AWS_ACCESS_KEY }}" -backend-config="secret_key=${{ secrets.TF_VAR_AWS_SECRET_KEY }}"             \
+        run: | 
+          terraform init \
+          -backend-config="access_key=${{ secrets.TF_VAR_AWS_ACCESS_KEY }}" \
+          -backend-config="secret_key=${{ secrets.TF_VAR_AWS_SECRET_KEY }}"             \
       - name: Terraform validate
         id: validate
-        run: terraform validate   
+        run: terraform validate
+      - name: Terraform plan
+        id: plan
+        run: | 
+          terraform plan \
+          -backend-config="access_key=${{ secrets.TF_VAR_AWS_ACCESS_KEY }}" \
+          -backend-config="secret_key=${{ secrets.TF_VAR_AWS_SECRET_KEY }}" \
+          -input=false \
+          -json \
+          -out=tfplan \       
+      - name: Check location of plan output file
+        id: plan
+        run: ls -R .
+      # - name: Upload Plan Artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: lambdaartifact
+      #     path: ./lambda.zip
