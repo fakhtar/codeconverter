@@ -27,11 +27,11 @@ jobs:
         run: terraform validate
       - name: Terraform plan
         id: plan
-        run: | 
+        run: |
           terraform plan \
-          -input=false \
-          -json \
-          -out=tfplan \       
+            -input=false \
+            -json \
+            -out=tfplan       
       - name: Check location of plan output file
         id: checkfilelocation
         run: ls -R .
