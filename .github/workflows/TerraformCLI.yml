@@ -64,3 +64,14 @@ jobs:
         name: tfplan
     - name: Display structure of downloaded plan
       run: ls -R
+    - name: Terraform apply
+      id: apply
+      run: |
+        terraform apply \
+          -var="aws_access_key=${{ secrets.TF_VAR_AWS_ACCESS_KEY }}" \
+          -var="aws_secret_key=${{ secrets.TF_VAR_AWS_SECRET_KEY }}" \
+          -input=false \
+          -auto-approve \
+          -lock=false \
+          -out=tfplan \
+          tfplan
