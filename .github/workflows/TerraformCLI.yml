@@ -46,7 +46,7 @@ jobs:
         id: manualapprovalforapply
         uses: trstringer/manual-approval@v1
         with:
-          secret: ${{ github.MANUALAPPROVALSECRET }}
+          secret: ${{ secrets.MANUALAPPROVALSECRET }}
           approvers: fakhtar
           minimum-approvals: 1
       - name: Echo approved
