@@ -52,3 +52,10 @@ jobs:
       - name: Echo approved
         id: echoapproved
         run: echo "approved"
+      - name: download plan artifact
+        id: downloadplanartifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tfplan
+      - name: Display structure of downloaded plan
+        run: ls -R
