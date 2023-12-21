@@ -53,11 +53,14 @@ jobs:
         id: echoapproved
         run: echo "approved"
   terraformapply:
+    name: "Terraform apply"
+    runs-on: ubuntu-latest
     needs: terraforminitvalidateandplan
-      - name: download plan artifact
-        id: downloadplanartifact
-        uses: actions/download-artifact@v3
-        with:
-          name: tfplan
-      - name: Display structure of downloaded plan
-        run: ls -R
+    steps:
+    - name: download plan artifact
+      id: downloadplanartifact
+      uses: actions/download-artifact@v3
+      with:
+        name: tfplan
+    - name: Display structure of downloaded plan
+      run: ls -R
