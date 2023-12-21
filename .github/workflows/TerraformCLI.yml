@@ -37,8 +37,9 @@ jobs:
       - name: Check location of plan output file
         id: checkfilelocation
         run: ls -R .
-      # - name: Upload Plan Artifact
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: lambdaartifact
-      #     path: ./lambda.zip
+      - name: Upload Plan Artifact
+        id: uploadplanartifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: tfplan
+          path: ./tfplan
