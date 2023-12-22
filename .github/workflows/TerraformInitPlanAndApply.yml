@@ -49,6 +49,8 @@ jobs:
           secret: ${{ secrets.MANUALAPPROVALSECRET }}
           approvers: fakhtar
           minimum-approvals: 1
+          issue-title: "Approve Apply"
+          issue-body: "Please approve to apply infrastrcutre"
       - name: Echo approved
         id: echoapproved
         run: echo "approved"
