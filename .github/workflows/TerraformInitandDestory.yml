@@ -32,8 +32,7 @@ jobs:
             -var="aws_access_key=${{ secrets.TF_VAR_AWS_ACCESS_KEY }}" \
             -var="aws_secret_key=${{ secrets.TF_VAR_AWS_SECRET_KEY }}" \
             -input=false \
-            -out=tfplan \
-            > 'destoryoutput.txt'
+            -out=tfplan
       - name: Check location of plan output file
         id: checkfilelocation
         run: ls -R .
@@ -43,17 +42,6 @@ jobs:
         with:
           name: tfplan
           path: ./tfplan
-      - name: Read and assign output of destory
-        id: destoryoutput
-        run: |
-          input_file="destoryoutput.txt"
-          while read line
-          do
-            file_text=$line
-          done < "$input_file"
-          echo ::set-output name=new_value::$file_text
-
-
       - name: Wait for approval to run destroy
         id: manualapprovalfordestroy
         uses: trstringer/manual-approval@v1
@@ -62,7 +50,7 @@ jobs:
           approvers: fakhtar
           minimum-approvals: 1
           issue-title: "Approve Destroy"
-          issue-body: ${​​​​{​​​​​​​​​​​ steps.destoryoutput.outputs.new_value }​​​​​​​​​​​}​​​​​​​​​​​​​​​​​​
+          issue-body: "Please approve to destory infrastrcutre"
       - name: Echo approved
         id: echoapproved
         run: echo "approved"
