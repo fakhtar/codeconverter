@@ -49,6 +49,8 @@ jobs:
           secret: ${{ secrets.MANUALAPPROVALSECRET }}
           approvers: fakhtar
           minimum-approvals: 1
+          issue-title: "Approve Destroy"
+          issue-body: "Please approve to destory infrastrcutre"
       - name: Echo approved
         id: echoapproved
         run: echo "approved"
@@ -58,8 +60,8 @@ jobs:
         id: destroy
         run: |
           terraform destroy \
-            -backend-config="access_key=${{ secrets.TF_VAR_AWS_ACCESS_KEY }}" \
-            -backend-config="secret_key=${{ secrets.TF_VAR_AWS_SECRET_KEY }}" \
+            -var="aws_access_key=${{ secrets.TF_VAR_AWS_ACCESS_KEY }}" \
+            -var="aws_secret_key=${{ secrets.TF_VAR_AWS_SECRET_KEY }}" \
             -input=false \
             -auto-approve \
             -lock=false
