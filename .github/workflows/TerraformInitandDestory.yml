@@ -62,7 +62,7 @@ jobs:
           approvers: fakhtar
           minimum-approvals: 1
           issue-title: "Approve Destroy"
-          issue-body: "${​​​​{​​​​​​​​​​​ steps.destoryoutput.outputs.new_value }​​​​​​​​​​​}​​​​​​​​​​​​​​​​​​"
+          issue-body: ${​​​​{​​​​​​​​​​​ steps.destoryoutput.outputs.new_value }​​​​​​​​​​​}​​​​​​​​​​​​​​​​​​
       - name: Echo approved
         id: echoapproved
         run: echo "approved"
