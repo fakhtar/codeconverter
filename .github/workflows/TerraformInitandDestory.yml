@@ -3,11 +3,11 @@ on:
     branches:
       - main
 
-name: Terraform CLI Workflow - Init and Destory
+name: Terraform CLI Workflow - Init Validate Plan and Destory
 
 jobs:
   terraforminitanddestroy:
-    name: "Terraform init and destroy"
+    name: "Terraform Init Validate Plan and Destory"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
