@@ -52,23 +52,13 @@ jobs:
       - name: Echo approved
         id: echoapproved
         run: echo "approved"
-  terraformapply:
-    name: "Terraform apply"
-    runs-on: ubuntu-latest
-    needs: terraforminitvalidateandplan
-    steps:
-    - name: download plan artifact
-      id: downloadplanartifact
-      uses: actions/download-artifact@v3
-      with:
-        name: tfplan
-    - name: Display structure of downloaded plan
-      run: ls -R
-    - name: Terraform apply
-      id: apply
-      run: |
-        terraform apply \
-          -input=false \
-          -auto-approve \
-          -lock=false \
-          tfplan
+      - name: Display structure of directory
+        run: ls -R
+      - name: Terraform apply
+        id: apply
+        run: |
+          terraform apply \
+            -input=false \
+            -auto-approve \
+            -lock=false \
+            tfplan
