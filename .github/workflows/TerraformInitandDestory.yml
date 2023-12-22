@@ -3,11 +3,11 @@ on:
     branches:
       - main
 
-name: Terraform CLI Workflow
+name: Terraform CLI Workflow - Init and Destory
 
 jobs:
-  terraforminitvalidateandplan:
-    name: "Terraform init validate and plan"
+  terraforminitanddestroy:
+    name: "Terraform init and destroy"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,10 +25,10 @@ jobs:
       - name: Terraform validate
         id: validate
         run: terraform validate
-      - name: Terraform plan
-        id: plan
+      - name: Terraform plan destory
+        id: plandestroy
         run: |
-          terraform plan \
+          terraform plan -destroy \
             -var="aws_access_key=${{ secrets.TF_VAR_AWS_ACCESS_KEY }}" \
             -var="aws_secret_key=${{ secrets.TF_VAR_AWS_SECRET_KEY }}" \
             -input=false \
@@ -42,8 +42,8 @@ jobs:
         with:
           name: tfplan
           path: ./tfplan
-      - name: Wait for approval to run apply
-        id: manualapprovalforapply
+      - name: Wait for approval to run destroy
+        id: manualapprovalfordestroy
         uses: trstringer/manual-approval@v1
         with:
           secret: ${{ secrets.MANUALAPPROVALSECRET }}
@@ -54,11 +54,10 @@ jobs:
         run: echo "approved"
       - name: Display structure of directory
         run: ls -R
-      - name: Terraform apply
-        id: apply
+      - name: Terraform destroy
+        id: destroy
         run: |
-          terraform apply \
+          terraform destroy \
             -input=false \
             -auto-approve \
-            -lock=false \
-            tfplan
+            -lock=false
