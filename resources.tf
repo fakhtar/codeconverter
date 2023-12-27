@@ -11,21 +11,41 @@ resource "aws_lambda_function" "bedrocklambda" {
 }
 
 resource "aws_iam_role" "bedrocklambda_role" {
-  name = "bedrocklambda-role-githubactions"
+    name = "bedrocklambda-role-githubactions"
+    inline_policy {
+        name = "my_inline_policy"
 
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
+        policy = jsonencode(
+        {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Sid": "VisualEditor0",
+                    "Effect": "Allow",
+                    "Action": [
+                        "bedrock:InvokeAgent",
+                        "bedrock:InvokeModel",
+                        "bedrock:InvokeModelWithResponseStream"
+                    ],
+                    "Resource": "arn:aws:bedrock:*::foundation-model/*"
+                }
+            ]
+        }
+        )
     }
-  ]
-}
-EOF
+    assume_role_policy = <<EOF
+    {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+        "Action": "sts:AssumeRole",
+        "Principal": {
+            "Service": "lambda.amazonaws.com"
+        },
+        "Effect": "Allow",
+        "Sid": ""
+        }
+    ]
+    }
+    EOF
 }
