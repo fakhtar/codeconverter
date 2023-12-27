@@ -11,7 +11,7 @@ resource "aws_lambda_function" "bedrocklambda" {
 }
 
 resource "aws_iam_role" "bedrocklambda_role" {
-  name = "bedrocklambda-role"
+  name = "bedrocklambda-role-githubactions"
 
   assume_role_policy = <<EOF
 {
