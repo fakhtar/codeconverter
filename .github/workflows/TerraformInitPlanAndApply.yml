@@ -3,11 +3,11 @@ on:
     branches:
       - main
 
-name: Terraform CLI Workflow - Init Plan and Apply
+name: Terraform CLI Workflow - Init Validate Plan and Apply
 
 jobs:
   terraforminitvalidateandplan:
-    name: "Terraform Init Plan and Apply"
+    name: "Terraform Init Validate Plan and Apply"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,7 +21,14 @@ jobs:
         run: | 
           terraform init \
           -backend-config="access_key=${{ secrets.TF_VAR_AWS_ACCESS_KEY }}" \
-          -backend-config="secret_key=${{ secrets.TF_VAR_AWS_SECRET_KEY }}"             \
+          -backend-config="secret_key=${{ secrets.TF_VAR_AWS_SECRET_KEY }}" 
+      - name: Package lambda code into zip file
+        run: |
+          cd apilambda
+          pwd
+          pip install -r ./requirements.txt -t .
+          zip -r ../lambda.zip .
+          cd ..           \
       - name: Terraform validate
         id: validate
         run: terraform validate
@@ -54,13 +61,6 @@ jobs:
       - name: Echo approved
         id: echoapproved
         run: echo "approved"
-      - name: Package lambda code into zip file
-        run: |
-          cd apilambda
-          pwd
-          pip install -r ./requirements.txt -t .
-          zip -r ../lambda.zip .
-          cd ..
       - name: Display structure of directory
         run: ls -R
       - name: Terraform apply
