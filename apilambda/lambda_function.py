@@ -16,4 +16,4 @@ print("botocore version:"+botocore.__version__)
 
  
 def lambda_handler(event,context):
-    pass
+    print(event)
