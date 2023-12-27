@@ -22,19 +22,13 @@ jobs:
           terraform init \
           -backend-config="access_key=${{ secrets.TF_VAR_AWS_ACCESS_KEY }}" \
           -backend-config="secret_key=${{ secrets.TF_VAR_AWS_SECRET_KEY }}" 
-      # - name: Package lambda code into zip file
-      #   run: |
-      #     cd apilambda
-      #     pwd
-      #     pip install -r ./requirements.txt -t .
-      #     zip -r ../lambda.zip .
-      #     cd ..      
       - name: Package lambda code into zip file
         run: |
           cd apilambda
           pwd
+          pip install -r ./requirements.txt -t .
           zip -r ../lambda.zip .
-          cd ..
+          cd ..      
       - name: Terraform validate
         id: validate
         run: terraform validate
