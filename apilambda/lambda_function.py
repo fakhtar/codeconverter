@@ -16,9 +16,10 @@ print("botocore version:"+botocore.__version__)
 
  
 def lambda_handler(event,context):
-    b = 'Why is Pluto no longer a planet?'.encode('utf-8')
+    b = "Why is Pluto no longer a planet?".encode('utf-8')
     client = boto3.client('bedrock-runtime')
     response = client.invoke_model(
+    contentType='text/plain',
     body=b,
     modelId='anthropic.claude-v2:1'
     )
