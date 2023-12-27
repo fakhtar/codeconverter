@@ -4,7 +4,7 @@ resource "aws_lambda_function" "bedrocklambda" {
     filename      = "lambda.zip"
     function_name = "bedrocklambda"
     role          = aws_iam_role.bedrocklambda_role.arn
-    handler       = "bedrocklambda.lambda_handler"
+    handler       = "lambda_function.lambda_handler"
     source_code_hash = filebase64sha256("lambda.zip")
     runtime = "python3.8"
     layers = []
