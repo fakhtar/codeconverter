@@ -10,16 +10,18 @@ sys.path.insert(0,envLambdaTaskRoot+"/NewBotoVersion")
 print("sys.path:"+str(sys.path))
 import botocore
 import boto3
- 
+import json
+import base64
+
 print("boto3 version:"+boto3.__version__)
 print("botocore version:"+botocore.__version__)
 
  
 def lambda_handler(event,context):
-    b = "Why is Pluto no longer a planet?".encode('utf-8')
+    b = base64.b64decode(event['content'])
     client = boto3.client('bedrock-runtime')
     response = client.invoke_model(
-    contentType='text/plain',
+    contentType='application/json',
     body=b,
     modelId='anthropic.claude-v2:1'
     )
