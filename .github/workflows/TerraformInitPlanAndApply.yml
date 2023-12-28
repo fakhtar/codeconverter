@@ -49,15 +49,15 @@ jobs:
         with:
           name: tfplan
           path: ./tfplan
-      - name: Wait for approval to run apply
-        id: manualapprovalforapply
-        uses: trstringer/manual-approval@v1
-        with:
-          secret: ${{ secrets.MANUALAPPROVALSECRET }}
-          approvers: fakhtar
-          minimum-approvals: 1
-          issue-title: "Approve Apply"
-          issue-body: "Please approve to apply infrastrcutre"
+      # - name: Wait for approval to run apply
+      #   id: manualapprovalforapply
+      #   uses: trstringer/manual-approval@v1
+      #   with:
+      #     secret: ${{ secrets.MANUALAPPROVALSECRET }}
+      #     approvers: fakhtar
+      #     minimum-approvals: 1
+      #     issue-title: "Approve Apply"
+      #     issue-body: "Please approve to apply infrastrcutre"
       - name: Echo approved
         id: echoapproved
         run: echo "approved"
