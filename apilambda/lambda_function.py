@@ -18,7 +18,7 @@ print("botocore version:"+botocore.__version__)
 
  
 def lambda_handler(event,context):
-    b = base64.b64decode(event['content'])
+    b = "Why is Pluto no longer a planet?".encode('utf-8')
     client = boto3.client('bedrock-runtime')
     response = client.invoke_model(
     contentType='application/json',
