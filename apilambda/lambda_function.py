@@ -33,7 +33,7 @@ def lambda_handler(event, context):
      # The actual call to retrieve an answer from the model
      response = bedrock_runtime.invoke_model(
        body=body, 
-       modelId="anthropic.claude-v2:1", 
+       modelId="ai21.j2-ultra-v1", 
        accept='application/json', 
        contentType='application/json'
      )
