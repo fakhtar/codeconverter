@@ -13,7 +13,7 @@ bedrock_runtime = boto3.client(
     region_name='us-east-1'
 )
 
-def handler(event, context):
+def lambda_handler(event, context):
      # Just shows an example of how to retrieve information about available models
     #  foundation_models = bedrock.list_foundation_models()
     #  matching_model = next((model for model in foundation_models["modelSummaries"] if model.get("modelName") == "Jurassic-2 Ultra"), None)
