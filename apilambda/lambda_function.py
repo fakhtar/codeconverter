@@ -18,7 +18,7 @@ def lambda_handler(event, context):
     #  foundation_models = bedrock.list_foundation_models()
     #  matching_model = next((model for model in foundation_models["modelSummaries"] if model.get("modelName") == "Jurassic-2 Ultra"), None)
     
-    prompt = json.loads(event.get("body"))
+    prompt = event.get("body")
      # The payload to be provided to Bedrock 
     body = json.dumps(
        {
