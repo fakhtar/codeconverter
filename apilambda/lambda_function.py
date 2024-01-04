@@ -1,13 +1,7 @@
 import json
 import boto3
-    
-    # Bedrock client used to interact with APIs around models
-# bedrock = boto3.client(
-#     service_name='bedrock', 
-#     region_name='us-east-1'
-# )
      
-    # Bedrock Runtime client used to invoke and question the models
+# Bedrock Runtime client used to invoke and question the models
 bedrock_runtime = boto3.client(
     service_name='bedrock-runtime', 
     region_name='us-east-1'
