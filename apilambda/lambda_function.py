@@ -2,10 +2,10 @@ import json
 import boto3
     
     # Bedrock client used to interact with APIs around models
-bedrock = boto3.client(
-    service_name='bedrock', 
-    region_name='us-east-1'
-)
+# bedrock = boto3.client(
+#     service_name='bedrock', 
+#     region_name='us-east-1'
+# )
      
     # Bedrock Runtime client used to invoke and question the models
 bedrock_runtime = boto3.client(
@@ -18,12 +18,11 @@ def lambda_handler(event, context):
     #  foundation_models = bedrock.list_foundation_models()
     #  matching_model = next((model for model in foundation_models["modelSummaries"] if model.get("modelName") == "Jurassic-2 Ultra"), None)
     
-    #  prompt = json.loads(event.get("body")).get("input").get("question")
-    
+    prompt = json.loads(event.get("body")).get("input").get("question")
      # The payload to be provided to Bedrock 
-     body = json.dumps(
+    body = json.dumps(
        {
-          "prompt": "Why is pluto no longer a planet", 
+          "prompt": prompt, 
           "maxTokens": 200,
           "temperature": 0.7,
           "topP": 1,
@@ -31,19 +30,19 @@ def lambda_handler(event, context):
      )
      
      # The actual call to retrieve an answer from the model
-     response = bedrock_runtime.invoke_model(
+    response = bedrock_runtime.invoke_model(
        body=body, 
        modelId="ai21.j2-ultra-v1", 
        accept='application/json', 
        contentType='application/json'
      )
     
-     response_body = json.loads(response.get('body').read())
+    response_body = json.loads(response.get('body').read())
     
      # The response from the model now mapped to the answer
-     answer = response_body.get('completions')[0].get('data').get('text')
+    answer = response_body.get('completions')[0].get('data').get('text')
      
-     return {
+    return {
        'statusCode': 200,
        'headers': {
          'Access-Control-Allow-Headers': '*',
