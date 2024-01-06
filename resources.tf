@@ -1,3 +1,16 @@
+# API Gateway resources
+
+resource "aws_api_gateway_rest_api" "CodeConverter" {
+  name        = "CodeConverter"
+  description = "TCodeConverter demo"
+}
+
+resource "aws_api_gateway_resource" "CodeConverterResource" {
+  rest_api_id = aws_api_gateway_rest_api.CodeConverter.id
+  parent_id   = aws_api_gateway_rest_api.CodeConverter.root_resource_id
+  path_part   = "codeconverter"
+}
+
 
 # lambda functions that will call the bedrock runtime library
 resource "aws_lambda_function" "bedrocklambda" {
