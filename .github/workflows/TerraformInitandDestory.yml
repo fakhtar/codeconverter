@@ -31,6 +31,7 @@ jobs:
           terraform plan -destroy \
             -var="aws_access_key=${{ secrets.TF_VAR_AWS_ACCESS_KEY }}" \
             -var="aws_secret_key=${{ secrets.TF_VAR_AWS_SECRET_KEY }}" \
+            -var="accountId=${{ secrets.TF_VAR_AWS_ACCOUNT_ID }}" \
             -input=false \
             -out=tfplan
       - name: Check location of plan output file
@@ -62,6 +63,7 @@ jobs:
           terraform destroy \
             -var="aws_access_key=${{ secrets.TF_VAR_AWS_ACCESS_KEY }}" \
             -var="aws_secret_key=${{ secrets.TF_VAR_AWS_SECRET_KEY }}" \
+            -var="accountId=${{ secrets.TF_VAR_AWS_ACCOUNT_ID }}" \
             -input=false \
             -auto-approve \
             -lock=false
