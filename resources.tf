@@ -47,7 +47,7 @@ resource "aws_lambda_function" "bedrocklambda" {
   source_code_hash = filebase64sha256("lambda.zip")
   runtime          = "python3.8"
   layers           = []
-  timeout          = 15
+  timeout          = 30
 }
 
 resource "aws_iam_role" "bedrocklambda_role" {
