@@ -40,7 +40,7 @@ def lambda_handler(event, context):
        contentType='application/json'
      )  
     response_body = json.loads(response.get('body').read())
-    
+    print(response_body)
      # The response from the model now mapped to the answer
     answer = response_body.get('completions')[0].get('data').get('text')
      
