@@ -13,7 +13,7 @@ def lambda_handler(event, context):
      # The payload to be provided to Bedrock 
     body = json.dumps(
       {
-          "prompt": prompt,
+          "prompt": "\n\nHuman:" + prompt + "\n\nAssistant:",
           "max_tokens_to_sample": 300,
           "temperature": 0.5,
           "top_k": 250,
