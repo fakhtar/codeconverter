@@ -8,7 +8,7 @@ bedrock_runtime = boto3.client(
 )
 
 def lambda_handler(event, context):
-
+    print(event)
     prompt = event.get("body")
      # The payload to be provided to Bedrock 
     body = json.dumps(
