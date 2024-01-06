@@ -8,29 +8,37 @@ bedrock_runtime = boto3.client(
 )
 
 def lambda_handler(event, context):
-     # Just shows an example of how to retrieve information about available models
-    #  foundation_models = bedrock.list_foundation_models()
-    #  matching_model = next((model for model in foundation_models["modelSummaries"] if model.get("modelName") == "Jurassic-2 Ultra"), None)
-    
+
     prompt = event.get("body")
      # The payload to be provided to Bedrock 
     body = json.dumps(
-       {
-          "prompt": prompt, 
-          "maxTokens": 200,
-          "temperature": 0.7,
-          "topP": 1,
-       }
+      {
+          "prompt": prompt,
+          "max_tokens_to_sample": 300,
+          "temperature": 0.5,
+          "top_k": 250,
+          "top_p": 1,
+          "stop_sequences": [
+            "\n\nHuman:"
+          ],
+          "anthropic_version": "bedrock-2023-05-31"
+        }
      )
      
      # The actual call to retrieve an answer from the model
+    # response = bedrock_runtime.invoke_model(
+    #    body=body, 
+    #    modelId="ai21.j2-ultra-v1", 
+    #    accept='application/json', 
+    #    contentType='application/json'
+    #  )
+
     response = bedrock_runtime.invoke_model(
        body=body, 
-       modelId="ai21.j2-ultra-v1", 
+       modelId="anthropic.claude-v2:1", 
        accept='application/json', 
        contentType='application/json'
-     )
-    
+     )  
     response_body = json.loads(response.get('body').read())
     
      # The response from the model now mapped to the answer
