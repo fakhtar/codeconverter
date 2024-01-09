@@ -29,10 +29,10 @@ resource "aws_api_gateway_resource" "CodeConverterResource" {
   path_part   = "codeconverter"
 }
 
-resource "aws_api_gateway_method" "CodeConverterGetMethod" {
+resource "aws_api_gateway_method" "CodeConverterPostMethod" {
   rest_api_id   = aws_api_gateway_rest_api.CodeConverter.id
   resource_id   = aws_api_gateway_resource.CodeConverterResource.id
-  http_method   = "GET"
+  http_method   = "POST"
   authorization = "NONE"
 }
 
