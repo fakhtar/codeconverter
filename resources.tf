@@ -20,7 +20,7 @@ resource "aws_api_gateway_stage" "CodeConverterDeploymentSingleStage" {
 
 resource "aws_api_gateway_rest_api" "CodeConverter" {
   name        = "CodeConverter"
-  description = "TCodeConverter demo"
+  description = "CodeConverter demo with post request"
 }
 
 resource "aws_api_gateway_resource" "CodeConverterResource" {
