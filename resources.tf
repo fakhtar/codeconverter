@@ -6,7 +6,7 @@ resource "aws_api_gateway_deployment" "CodeConverterDeployment" {
   triggers = {
     redeployment = sha1(jsonencode(aws_api_gateway_rest_api.CodeConverter.body))
   }
-
+  stage_description = "${md5(file("resources.tf"))}"
   lifecycle {
     create_before_destroy = true
   }
