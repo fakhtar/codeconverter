@@ -1,5 +1,23 @@
 # API Gateway resources
 
+resource "aws_api_gateway_deployment" "CodeConverterDeployment" {
+  rest_api_id = aws_api_gateway_rest_api.CodeConverter.id
+
+  triggers = {
+    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.CodeConverter.body))
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_api_gateway_stage" "CodeConverterDeploymentSingleStage" {
+  deployment_id = aws_api_gateway_deployment.CodeConverterDeployment.id
+  rest_api_id   = aws_api_gateway_rest_api.CodeConverter.id
+  stage_name    = "dev"
+}
+
 resource "aws_api_gateway_rest_api" "CodeConverter" {
   name        = "CodeConverter"
   description = "TCodeConverter demo"
