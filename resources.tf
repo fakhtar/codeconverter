@@ -70,9 +70,9 @@ resource "aws_lambda_function" "bedrocklambda" {
 
 resource "aws_iam_role" "bedrocklambda_role" {
   name = "bedrocklambda-role-githubactions"
+  managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"]
   inline_policy {
     name = "my_inline_policy"
-
     policy = jsonencode(
       {
         "Version" : "2012-10-17",
