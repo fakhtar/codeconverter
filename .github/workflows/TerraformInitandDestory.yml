@@ -25,6 +25,13 @@ jobs:
       - name: Terraform validate
         id: validate
         run: terraform validate
+      - name: Package lambda code into zip file
+        run: |
+          cd apilambda
+          pwd
+          pip install -r ./requirements.txt -t .
+          zip -r ../lambda.zip .
+          cd ..     
       - name: Terraform plan destory
         id: plandestroy
         run: |
@@ -43,15 +50,15 @@ jobs:
         with:
           name: tfplan
           path: ./tfplan
-      - name: Wait for approval to run destroy
-        id: manualapprovalfordestroy
-        uses: trstringer/manual-approval@v1
-        with:
-          secret: ${{ secrets.MANUALAPPROVALSECRET }}
-          approvers: fakhtar
-          minimum-approvals: 1
-          issue-title: "Approve Destroy"
-          issue-body: "Please approve to destory infrastrcutre"
+      # - name: Wait for approval to run destroy
+      #   id: manualapprovalfordestroy
+      #   uses: trstringer/manual-approval@v1
+      #   with:
+      #     secret: ${{ secrets.MANUALAPPROVALSECRET }}
+      #     approvers: fakhtar
+      #     minimum-approvals: 1
+      #     issue-title: "Approve Destroy"
+      #     issue-body: "Please approve to destory infrastrcutre"
       - name: Echo approved
         id: echoapproved
         run: echo "approved"
