@@ -31,7 +31,14 @@ jobs:
       #     pwd
       #     pip install -r ./requirements.txt -t .
       #     zip -r ../lambda.zip .
-      #     cd ..     
+      #     cd ..  
+      - name: Package lambda code into zip file
+        run: |
+          cd apilambda
+          pwd
+          pip install -r ./requirements.txt -t .
+          zip -r ../lambda.zip .
+          cd ..        
       - name: Terraform plan destory
         id: plandestroy
         run: |
@@ -41,9 +48,9 @@ jobs:
             -var="accountId=${{ secrets.TF_VAR_AWS_ACCOUNT_ID }}" \
             -input=false \
             -out=tfplan
-      - name: Check location of plan output file
-        id: checkfilelocation
-        run: ls -R .
+      # - name: Check location of plan output file
+      #   id: checkfilelocation
+      #   run: ls -R .
       - name: Upload Plan Artifact
         id: uploadplanartifact
         uses: actions/upload-artifact@v3
