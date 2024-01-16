@@ -1,0 +1,3 @@
+{
+    "body" :"convert the following Python code into node js\r\n\r\ndef read_and_print_file(file_path):\r\n    try:\r\n        with open(file_path, 'r') as file:\r\n            content = file.read()\r\n            print(\"File content:\")\r\n            print(content)\r\n    except FileNotFoundError:\r\n        print(f\"Error: File '{file_path}' not found.\")\r\n    except Exception as e:\r\n        print(f\"An error occurred: {e}\")\r\n\r\n# Example usage:\r\nfile_path = 'example.txt'  # Replace with the actual file path\r\nread_and_print_file(file_path)\r\n\\n"
+}
