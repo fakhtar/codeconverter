@@ -10,7 +10,7 @@ resource "aws_api_gateway_deployment" "CodeConverterDeployment" {
   lifecycle {
     create_before_destroy = true
   }
-  depends_on = [ aws_api_gateway_method.CodeConverterPostMethod ]
+  depends_on = [ aws_api_gateway_method.CodeConverterPostMethod, aws_api_gateway_integration.CodeConverterLambdaIntegration ]
 }
 
 resource "aws_api_gateway_stage" "CodeConverterDeploymentSingleStage" {
